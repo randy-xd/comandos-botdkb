@@ -252,7 +252,7 @@ class Command {
 		if(ownerOverride && this.client.isOwner(message.author)) return true;
 
 		if(this.ownerOnly && (ownerOverride || !this.client.isOwner(message.author))) {
-			return `The \`${this.name}\` command can only be used by the bot owner.`;
+			return `el \`${this.name}\` El comando solo puede ser utilizado por el propietario del bot.`;
 		}
 
 		if(message.channel.type === 'text' && this.userPermissions) {
@@ -262,7 +262,7 @@ class Command {
 					return `The \`${this.name}\` command requires you to have the "${permissions[missing[0]]}" permission.`;
 				}
 				return oneLine`
-					The \`${this.name}\` command requires you to have the following permissions:
+					El \`${this.name}\` comando requiere que tenga los siguientes permisos:
 					${missing.map(perm => permissions[perm]).join(', ')}
 				`;
 			}
@@ -351,9 +351,9 @@ class Command {
 
 		const invite = this.client.options.invite;
 		return message.reply(stripIndents`
-			An error occurred while running the command: \`${err.name}: ${err.message}\`
-			You shouldn't ever receive an error like this.
-			Please contact ${ownerList || 'the bot owner'}${invite ? ` in this server: ${invite}` : '.'}
+			Se produjo un error al ejecutar el comando: \`${err.name}: ${err.message}\`
+			Nunca debería recibir un error como este.
+ Por favor contactar ${ownerList || 'el dueño del bot'}${invite ? ` en este servidor: ${invite}` : '.'}
 		`);
 	}
 
@@ -535,7 +535,7 @@ class Command {
 				throw new TypeError('Command userPermissions must be an Array of permission key strings.');
 			}
 			for(const perm of info.userPermissions) {
-				if(!permissions[perm]) throw new RangeError(`Invalid command userPermission: ${perm}`);
+				if(!permissions[perm]) throw new RangeError(`No tiene los permiso de: ${perm}`);
 			}
 		}
 		if(info.throttling) {
