@@ -7,7 +7,7 @@ module.exports = class PrefixCommand extends Command {
 			name: 'prefix',
 			group: 'util',
 			memberName: 'prefix',
-			description: 'Shows or sets the command prefix.',
+			description: 'ver o cambia el prefix en servidor.',
 			format: '[prefix/"default"/"none"]',
 			details: oneLine`
 				If no prefix is provided, the current prefix will be shown.
@@ -34,18 +34,18 @@ module.exports = class PrefixCommand extends Command {
 		if(!args.prefix) {
 			const prefix = msg.guild ? msg.guild.commandPrefix : this.client.commandPrefix;
 			return msg.reply(stripIndents`
-				${prefix ? `The command prefix is \`\`${prefix}\`\`.` : 'There is no command prefix.'}
-				To run commands, use ${msg.anyUsage('command')}.
+				${prefix ? `El prefix del comando es \`\`${prefix}\`\`.` : 'No hay prefix de comando.'}
+				Para ejecutar comandos, use ${msg.anyUsage('command')}.
 			`);
 		}
 
 		// Check the user's permission before changing anything
 		if(msg.guild) {
 			if(!msg.member.hasPermission('ADMINISTRATOR') && !this.client.isOwner(msg.author)) {
-				return msg.reply('Only administrators may change the command prefix.');
+				return msg.reply('solo los administradores pueden cambiar el prefijo del comando.');
 			}
 		} else if(!this.client.isOwner(msg.author)) {
-			return msg.reply('Only the bot owner(s) may change the global command prefix.');
+			return msg.reply('Solo los propietarios del bot pueden cambiar el prefijo del comando global.');
 		}
 
 		// Save the prefix
@@ -55,13 +55,13 @@ module.exports = class PrefixCommand extends Command {
 		if(lowercase === 'default') {
 			if(msg.guild) msg.guild.commandPrefix = null; else this.client.commandPrefix = null;
 			const current = this.client.commandPrefix ? `\`\`${this.client.commandPrefix}\`\`` : 'no prefix';
-			response = `Reset the command prefix to the default (currently ${current}).`;
+			response = `Restablezca el prefijo del comando al predeterminado (actualmente ${current}).`;
 		} else {
 			if(msg.guild) msg.guild.commandPrefix = prefix; else this.client.commandPrefix = prefix;
-			response = prefix ? `Set the command prefix to \`\`${args.prefix}\`\`.` : 'Removed the command prefix entirely.';
+			response = prefix ? `Establezca el prefijo del comando en \`\`${args.prefix}\`\`.` : 'Se eliminó el prefijo de comando por completo.';
 		}
 
-		await msg.reply(`${response} To run commands, use ${msg.anyUsage('command')}.`);
+		await msg.reply(`${response} Para ejecutar comandos, use ${msg.anyUsage('command')}.`);
 		return null;
 	}
 };
