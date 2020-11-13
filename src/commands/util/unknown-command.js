@@ -3,10 +3,10 @@ const Command = require('../base');
 module.exports = class UnknownCommandCommand extends Command {
 	constructor(client) {
 		super(client, {
-			name: 'unknown-command',
+			name: 'comando-desconocido',
 			group: 'util',
 			memberName: 'unknown-command',
-			description: 'Displays help information for when an unknown command is used.',
+			description: 'Muestra información de ayuda para cuando se utiliza un comando desconocido.',
 			examples: ['unknown-command kickeverybodyever'],
 			unknown: true,
 			hidden: true
@@ -15,11 +15,11 @@ module.exports = class UnknownCommandCommand extends Command {
 
 	run(msg) {
 		return msg.reply(
-			`Unknown command. Use ${msg.anyUsage(
+			`el comando es desconocido, por favor use ${msg.anyUsage(
 				'help',
 				msg.guild ? undefined : null,
 				msg.guild ? undefined : null
-			)} to view the command list.`
+			)} para ver la lista de comando`
 		);
 	}
 };
