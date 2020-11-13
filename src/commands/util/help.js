@@ -7,8 +7,9 @@ module.exports = class HelpCommand extends Command {
 		super(client, {
 			name: 'help',
 			group: 'util',
+			cooldowns: 10,
 			memberName: 'help',
-			aliases: ['commands'],
+			aliases: ['h','hp'],
 			description: 'ayuda en especifica comandos ',
 			details: oneLine`
 				The command may be part of a command name or a whole command name.
@@ -79,12 +80,12 @@ module.exports = class HelpCommand extends Command {
 						use ${Command.usage('command', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 						For example, ${Command.usage('prefix', msg.guild ? msg.guild.commandPrefix : null, this.client.user)}.
 					`}
-					To run a command in this DM, simply use ${Command.usage('command', null, null)} with no prefix.
+					Para ejecutar un comando en este DM, simplemente use ${Command.usage('command', null, null)} sin prefix.
 
-					Use ${this.usage('<command>', null, null)} to view detailed information about a specific command.
-					Use ${this.usage('all', null, null)} to view a list of *all* commands, not just available ones.
+				  use ${this.usage('<command>', null, null)} para ver información detallada sobre un comando específico.
+					use ${this.usage('all', null, null)} to ver una lista de *all* los comandos, no solo los disponibles.
 
-					__**${showAll ? 'All commands' : `Available commands in ${msg.guild || 'this DM'}`}**__
+					__**${showAll ? 'All commands' : `Comandos disponibles en ${msg.guild || 'este DM'}`}**__
 
 					${groups.filter(grp => grp.commands.some(cmd => !cmd.hidden && (showAll || cmd.isUsable(msg))))
 						.map(grp => stripIndents`
@@ -95,9 +96,9 @@ module.exports = class HelpCommand extends Command {
 						`).join('\n\n')
 					}
 				`, { split: true }));
-				if(msg.channel.type !== 'dm') messages.push(await msg.reply('Sent you a DM with information.'));
+				if(msg.channel.type !== 'dm') messages.push(await msg.reply('Te envió un DM con información.'));
 			} catch(err) {
-				messages.push(await msg.reply('Unable to send you the help DM. You probably have DMs disabled.'));
+				messages.push(await msg.reply('No puedo enviarle el DM de ayuda.  Probablemente tengas DM desactivados.'));
 			}
 			return messages;
 		}
