@@ -83,7 +83,7 @@ module.exports = class HelpCommand extends Command {
 					Para ejecutar un comando en este DM, simplemente use ${Command.usage('command', null, null)} sin prefix.
 
 				  use ${this.usage('<command>', null, null)} para ver información detallada sobre un comando específico.
-					use ${this.usage('all', null, null)} to ver una lista de *all* los comandos, no solo los disponibles.
+					use ${this.usage('all', null, null)} to ver una lista de *todos* los comandos, no solo los disponibles.
 
 					__**${showAll ? 'All commands' : `Comandos disponibles en ${msg.guild || 'este DM'}`}**__
 
